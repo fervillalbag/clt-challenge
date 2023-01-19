@@ -15,7 +15,15 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Login: React.FC = () => {
   return (
-    <Grid overflow="hidden" h="100vh" gridTemplateColumns="2fr 1.5fr">
+    <Grid
+      overflow="hidden"
+      h="100vh"
+      gridTemplateColumns={{
+        base: "1fr 1fr",
+        lg: "1fr 1fr",
+        xl: "2fr 1fr",
+      }}
+    >
       <Box
         css={{
           img: {
@@ -39,7 +47,7 @@ const Login: React.FC = () => {
         alignContent="center"
         my="3rem"
         h="calc(100vh - 6rem)"
-        px="6rem"
+        px={{ base: "3rem", xl: "4rem" }}
       >
         <Box css={{ img: { width: "140px" } }}>
           <LazyLoadImage src="/logo.jpeg" alt="" />
