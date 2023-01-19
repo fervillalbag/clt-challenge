@@ -10,10 +10,37 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+
+  const [userInfo, setUserInfo] = React.useState<{
+    email: string;
+    password: string;
+  }>({ email: "", password: "" });
+
+  const handleLogin = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const regexValidationEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+    if (!regexValidationEmail.test(userInfo.email)) {
+      return toast.error("El email debe ser valido!");
+    }
+
+    if (userInfo.password.length <= 5) {
+      return toast.error(
+        "La contraseña debe tener al menos 6 caracteres"
+      );
+    }
+
+    navigate("/");
+    toast.success("Has iniciado sesion!");
+  };
+
   return (
     <Grid
       overflow="hidden"
@@ -48,6 +75,8 @@ const Login: React.FC = () => {
         my="3rem"
         h="calc(100vh - 6rem)"
         px={{ base: "3rem", xl: "4rem" }}
+        as="form"
+        onSubmit={handleLogin}
       >
         <Box css={{ img: { width: "140px" } }}>
           <LazyLoadImage src="/logo.jpeg" alt="" />
@@ -78,6 +107,10 @@ const Login: React.FC = () => {
               borderColor="#d9d9d9"
               px="10px"
               id="email"
+              value={userInfo.email}
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, email: e.target.value })
+              }
             />
           </Box>
 
@@ -95,11 +128,16 @@ const Login: React.FC = () => {
               Contraseña
             </Text>
             <Input
+              type="password"
               id="password"
               mt="0.5rem"
               rounded="4px"
               borderColor="#d9d9d9"
               px="10px"
+              value={userInfo.password}
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, password: e.target.value })
+              }
             />
           </Box>
         </Flex>
@@ -117,6 +155,7 @@ const Login: React.FC = () => {
         </Flex>
 
         <Button
+          type="submit"
           mt="1.5rem"
           h="3.4rem"
           w="full"
@@ -149,6 +188,10 @@ const Login: React.FC = () => {
           color="white"
           border="1px solid #e8e8e8"
           _hover={{ bgColor: "gray.100" }}
+          onClick={() => {
+            navigate("/");
+            return toast.success("Sesion iniciada con Google");
+          }}
         >
           <Image w="2.5rem" src="/logo-google.png" alt="" />
           <Text ml="10px" color="#666">
