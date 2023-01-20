@@ -22,7 +22,11 @@ const Profile: React.FC = () => {
           },
         }}
       >
-        <LazyLoadImage src="https://bit.ly/3HkKcnl" alt="" />
+        <LazyLoadImage
+          effect="blur"
+          src="https://bit.ly/3HkKcnl"
+          alt=""
+        />
 
         <Box bottom="0" right="0" position="absolute">
           <Button
