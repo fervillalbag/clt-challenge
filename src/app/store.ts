@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit/dist/configureStore";
+import { configureStore } from "@reduxjs/toolkit";
 import servicesSlice from "../features/servicesSlice";
 
 export const store = configureStore({

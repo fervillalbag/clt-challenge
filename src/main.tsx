@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Toaster } from "react-hot-toast";
+import { Provider } from "react-redux";
 
 import App from "./App";
 import { theme } from "./theme";
-import { Provider } from "react-redux";
 import { store } from "./app/store";
 
 import "./index.css";

@@ -1,8 +1,8 @@
 import React from "react";
 import Layout from "../components/Layout";
 
-const Home: React.FC = () => {
+const Dashboard: React.FC = () => {
   return <Layout></Layout>;
 };
 
-export default Home;
+export default Dashboard;
