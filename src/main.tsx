@@ -4,13 +4,18 @@ import { Toaster } from "react-hot-toast";
 
 import App from "./App";
 import { theme } from "./theme";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
+
 import "./index.css";
 
 ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 ).render(
-  <ChakraProvider theme={theme}>
-    <Toaster position="top-center" reverseOrder={false} />
-    <App />
-  </ChakraProvider>
+  <Provider store={store}>
+    <ChakraProvider theme={theme}>
+      <Toaster position="top-center" reverseOrder={false} />
+      <App />
+    </ChakraProvider>
+  </Provider>
 );
