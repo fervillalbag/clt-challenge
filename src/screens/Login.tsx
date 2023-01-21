@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 import {
   Grid,
   Box,
@@ -10,22 +11,34 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
+import { login, logout } from "../features/userSlice";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = React.useState<{
+    fullname: string;
     email: string;
     password: string;
-  }>({ email: "", password: "" });
+  }>({ fullname: "", email: "", password: "" });
+
+  React.useEffect(() => {
+    setUserInfo({ fullname: "", email: "", password: "" });
+    dispatch(logout());
+  }, []);
 
   const handleLogin = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     const regexValidationEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+    if (userInfo.fullname === "") {
+      return toast.error("El nombre es obligatorio");
+    }
 
     if (!regexValidationEmail.test(userInfo.email)) {
       return toast.error("El email debe ser valido!");
@@ -36,6 +49,8 @@ const Login: React.FC = () => {
         "La contraseña debe tener al menos 6 caracteres"
       );
     }
+
+    dispatch(login(userInfo));
 
     navigate("/");
     toast.success("Has iniciado sesion!");
@@ -78,7 +93,7 @@ const Login: React.FC = () => {
         as="form"
         onSubmit={handleLogin}
       >
-        <Box css={{ img: { width: "140px" } }}>
+        <Box css={{ img: { width: "120px" } }}>
           <LazyLoadImage src="/logo.jpeg" alt="" />
         </Box>
         <Text color="#333" fontWeight="black" fontSize="2rem">
@@ -87,8 +102,33 @@ const Login: React.FC = () => {
         <Text color="#333">
           Introduce las credenciales para iniciar sesion
         </Text>
-        <Flex mt="2rem" gap="1.5rem 0" flexDir="column">
-          {/* Email */}
+        <Flex mt="1rem" gap="1rem 0" flexDir="column">
+          <Box>
+            <Text
+              color="#999"
+              fontSize="0.8rem"
+              fontWeight="semibold"
+              as="label"
+              textTransform="uppercase"
+              display="block"
+              htmlFor="email"
+            >
+              Nombre
+            </Text>
+            <Input
+              autoComplete="off"
+              mt="0.5rem"
+              rounded="4px"
+              borderColor="#d9d9d9"
+              px="10px"
+              id="email"
+              value={userInfo.fullname}
+              onChange={(e) =>
+                setUserInfo({ ...userInfo, fullname: e.target.value })
+              }
+            />
+          </Box>
+
           <Box>
             <Text
               color="#999"
@@ -102,6 +142,7 @@ const Login: React.FC = () => {
               Email
             </Text>
             <Input
+              autoComplete="off"
               mt="0.5rem"
               rounded="4px"
               borderColor="#d9d9d9"
@@ -129,6 +170,7 @@ const Login: React.FC = () => {
             </Text>
             <Input
               type="password"
+              autoComplete="off"
               id="password"
               mt="0.5rem"
               rounded="4px"
@@ -169,7 +211,7 @@ const Login: React.FC = () => {
         <Grid
           alignContent="center"
           gridTemplateColumns="1fr auto 1fr"
-          my="3rem"
+          my="1.5rem"
           gap="1rem"
         >
           <Box alignSelf="center" h="1px" bgColor="#e8e8e8" />

@@ -2,8 +2,12 @@ import React from "react";
 import { Box, Button, Grid, Image, Text } from "@chakra-ui/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoSettingsSharp } from "react-icons/io5";
+import { useSelector } from "react-redux";
+import { User } from "../interfaces/user";
 
 const Profile: React.FC = () => {
+  const user = useSelector((state: { user: User }) => state.user);
+
   return (
     <Box>
       <Grid
@@ -45,7 +49,7 @@ const Profile: React.FC = () => {
         color="blue.800"
         mt="0.7rem"
       >
-        Lucas Perez
+        {user.fullname}
       </Text>
       <Text
         textAlign="center"
@@ -54,7 +58,7 @@ const Profile: React.FC = () => {
         color="gray.500"
         // mt="0.7rem"
       >
-        lucasperez9@gmail.com
+        {user.email}
       </Text>
     </Box>
   );
