@@ -32,8 +32,9 @@ const Services: React.FC = () => {
         bgColor="#dabda9"
         rounded="2.2rem"
         h="full"
+        py="2rem"
       >
-        <Box p="2rem" pb="0">
+        <Box pl="2rem">
           <Input
             value={inputSearch}
             onChange={(e) => setInputSearch(e.target.value)}
@@ -46,6 +47,7 @@ const Services: React.FC = () => {
         <Flex
           className="hide-scrollbar"
           overflowY="scroll"
+          pt="2.5rem"
           alignItems="center"
           h="full"
           pl="2rem"
@@ -53,7 +55,7 @@ const Services: React.FC = () => {
           {...events}
         >
           {servicesFiltered.length === 0 || !servicesFiltered ? (
-            <Box mx="auto">
+            <Grid placeItems="center" mx="auto" h="150px">
               <Heading
                 color="#333"
                 textAlign="center"
@@ -64,7 +66,7 @@ const Services: React.FC = () => {
               >
                 No se encontraron resultados ⚠️
               </Heading>
-            </Box>
+            </Grid>
           ) : (
             servicesFiltered.map((service) => (
               <ServiceItem service={service} />

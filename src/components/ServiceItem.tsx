@@ -20,6 +20,7 @@ const ServiceItem: React.FC<{ service: Service }> = ({ service }) => {
         placeItems="center"
         position="absolute"
         top="-1.5rem"
+        zIndex="10"
         left="1.5rem"
         w="3rem"
         h="3rem"

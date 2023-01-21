@@ -7,7 +7,7 @@ import Layout from "../components/Layout";
 import Services from "../components/Services";
 
 const gridColumns = { base: "1fr", lg: "1fr 1fr", xl: "1.5fr 2fr" };
-const gridRows = { base: "initial", lg: "1fr 350px" };
+const gridRows = { base: "initial", lg: "1fr auto" };
 
 const Home: React.FC = () => {
   return (
