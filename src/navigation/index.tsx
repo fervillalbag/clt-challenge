@@ -12,6 +12,8 @@ export const Navigation = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotLogin />} />
+
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
 
@@ -19,8 +21,6 @@ export const Navigation = () => {
         <Route path="/plans" element={<Plans />} />
         <Route path="/logistic" element={<Logistic />} />
         <Route path="/map" element={<Map />} />
-
-        <Route path="*" element={<NotLogin />} />
       </Routes>
     </BrowserRouter>
   );
