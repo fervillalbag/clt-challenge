@@ -24,7 +24,17 @@ export const initialState = [
   {
     id: 5,
     name: "STARLINK",
-    type: "PUBLIC",
+    type: "PRIVATE",
+  },
+  {
+    id: 6,
+    name: "TIGO TV",
+    type: "PRIVATE",
+  },
+  {
+    id: 7,
+    name: "STAR+",
+    type: "PRIVATE",
   },
 ];
 

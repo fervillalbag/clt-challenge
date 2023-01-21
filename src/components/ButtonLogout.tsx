@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Grid, Text } from "@chakra-ui/react";
 import { MdOutlineLogout } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const ButtonLogout: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <Grid
       w="full"
@@ -19,6 +22,7 @@ const ButtonLogout: React.FC = () => {
         bgColor="gray.200"
         h="3rem"
         w="8rem"
+        onClick={() => navigate("/login")}
       >
         <Text fontSize="1.2rem" mr="0.3rem">
           <MdOutlineLogout />
