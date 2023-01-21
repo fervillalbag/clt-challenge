@@ -231,6 +231,12 @@ const Login: React.FC = () => {
           _hover={{ bgColor: "gray.100" }}
           onClick={() => {
             navigate("/");
+            dispatch(
+              login({
+                fullname: "Roberto Lopez",
+                email: "robertlopez2@gmail.com",
+              })
+            );
             return toast.success("Sesion iniciada con Google");
           }}
         >
