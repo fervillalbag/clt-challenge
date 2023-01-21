@@ -16,6 +16,16 @@ export const initialState = [
     name: "ESSAP",
     type: "PUBLIC",
   },
+  {
+    id: 4,
+    name: "COPACO",
+    type: "PRIVATE",
+  },
+  {
+    id: 5,
+    name: "STARLINK",
+    type: "PUBLIC",
+  },
 ];
 
 export const serviceSlice = createSlice({
