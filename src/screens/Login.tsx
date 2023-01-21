@@ -29,7 +29,6 @@ const Login: React.FC = () => {
 
   React.useEffect(() => {
     setUserInfo({ fullname: "", email: "", password: "" });
-    dispatch(logout());
   }, []);
 
   const handleLogin = (e: React.FormEvent<HTMLInputElement>) => {
