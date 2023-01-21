@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
-import { login, logout } from "../features/userSlice";
+import { login } from "../features/userSlice";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -115,7 +115,7 @@ const Login: React.FC = () => {
               Nombre
             </Text>
             <Input
-              autoComplete="off"
+              // autoComplete="off"
               mt="0.5rem"
               rounded="4px"
               borderColor="#d9d9d9"
@@ -141,7 +141,7 @@ const Login: React.FC = () => {
               Email
             </Text>
             <Input
-              autoComplete="off"
+              // autoComplete="off"
               mt="0.5rem"
               rounded="4px"
               borderColor="#d9d9d9"
@@ -169,7 +169,7 @@ const Login: React.FC = () => {
             </Text>
             <Input
               type="password"
-              autoComplete="off"
+              // autoComplete="off"
               id="password"
               mt="0.5rem"
               rounded="4px"
