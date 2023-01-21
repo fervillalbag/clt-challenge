@@ -33,24 +33,25 @@ type NavLinkProps = { name: string; route: string };
 
 const NavLink = ({ link }: { link: NavLinkProps }) => {
   const { pathname } = useLocation();
-  console.log(location);
 
   return (
-    <Link
-      bgColor={pathname === link.route ? "gray.100" : "white"}
-      display="block"
-      fontWeight="semibold"
-      color="blue.800"
-      fontSize="1.3rem"
-      mb="0.7rem"
-      rounded="0.4rem"
-      p="0.3rem 1.5rem"
-      _hover={{
-        bgColor: "gray.200",
-      }}
-    >
-      <LinkRRD to={link.route}>{link.name}</LinkRRD>
-    </Link>
+    <LinkRRD to={link.route}>
+      <Link
+        bgColor={pathname === link.route ? "gray.100" : "white"}
+        display="block"
+        fontWeight="semibold"
+        color="blue.800"
+        fontSize="1.3rem"
+        mb="0.7rem"
+        rounded="0.4rem"
+        p="0.3rem 1.5rem"
+        _hover={{
+          bgColor: "gray.200",
+        }}
+      >
+        {link.name}
+      </Link>
+    </LinkRRD>
   );
 };
 

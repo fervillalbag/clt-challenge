@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Grid, Text } from "@chakra-ui/react";
+import { Box, Button, Grid, Image, Text } from "@chakra-ui/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { IoSettingsSharp } from "react-icons/io5";
 
@@ -22,11 +22,7 @@ const Profile: React.FC = () => {
           },
         }}
       >
-        <LazyLoadImage
-          effect="blur"
-          src="https://bit.ly/3HkKcnl"
-          alt=""
-        />
+        <Image loading="lazy" src="https://bit.ly/3HkKcnl" alt="" />
 
         <Box bottom="0" right="0" position="absolute">
           <Button
