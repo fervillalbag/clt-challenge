@@ -4,4 +4,5 @@ export interface InfoPay {
   nroCta: string;
   nameCta: string;
   cvc: string;
+  amount: number | null;
 }

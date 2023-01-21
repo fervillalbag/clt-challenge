@@ -17,8 +17,8 @@ const Services: React.FC = () => {
     service.name.toLowerCase().includes(inputSearch.toLowerCase())
   );
 
-  const ref: any = React.useRef(); // We will use React useRef hook to reference the wrapping div:
-  const { events } = useDraggable(ref); // Now we pass the reference to the useDraggable hook:
+  const ref: any = React.useRef();
+  const { events } = useDraggable(ref);
 
   return (
     <Box
@@ -69,7 +69,7 @@ const Services: React.FC = () => {
             </Grid>
           ) : (
             servicesFiltered.map((service) => (
-              <ServiceItem service={service} />
+              <ServiceItem key={service.id} service={service} />
             ))
           )}
         </Flex>

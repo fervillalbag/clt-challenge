@@ -5,6 +5,7 @@ export const initialState = {
   id: "",
   fullname: "",
   email: "",
+  balance: 2000000,
 };
 
 export const userSlice = createSlice({
@@ -19,8 +20,14 @@ export const userSlice = createSlice({
       state.id = "";
       state.fullname = "";
     },
+    updateBalance: (state, { payload }) => {
+      return {
+        ...state,
+        balance: state.balance - payload,
+      };
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateBalance } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,8 +1,15 @@
 import React from "react";
-import { Box, Button, Grid, Image, Text } from "@chakra-ui/react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import { IoSettingsSharp } from "react-icons/io5";
+import {
+  Box,
+  Button,
+  Grid,
+  Heading,
+  Image,
+  Text,
+} from "@chakra-ui/react";
 import { useSelector } from "react-redux";
+
+import { IoSettingsSharp } from "react-icons/io5";
 import { User } from "../interfaces/user";
 
 const Profile: React.FC = () => {
@@ -15,7 +22,6 @@ const Profile: React.FC = () => {
         mt="1.5rem"
         position="relative"
         w="7rem"
-        // h="7rem"
         mx="auto"
         css={{
           img: {
@@ -56,10 +62,19 @@ const Profile: React.FC = () => {
         fontWeight="medium"
         fontSize="0.9rem"
         color="gray.500"
-        // mt="0.7rem"
       >
         {user.email}
       </Text>
+
+      <Heading
+        fontSize="1.25rem"
+        fontWeight="black"
+        color="blue.900"
+        mt="0.5rem"
+        textAlign="center"
+      >
+        Gs. {user.balance.toLocaleString("en-US")}
+      </Heading>
     </Box>
   );
 };
