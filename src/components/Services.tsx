@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, Input } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useDraggable } from "react-use-draggable-scroll";
 
@@ -9,6 +9,12 @@ import ServiceItem from "./ServiceItem";
 const Services: React.FC = () => {
   const services = useSelector(
     (state: { services: Service[] }) => state.services
+  );
+
+  const [inputSearch, setInputSearch] = React.useState<string>("");
+
+  const servicesFiltered = services?.filter((service) =>
+    service.name.toLowerCase().includes(inputSearch.toLowerCase())
   );
 
   const ref: any = React.useRef(); // We will use React useRef hook to reference the wrapping div:
@@ -21,7 +27,22 @@ const Services: React.FC = () => {
       pl="2.2rem"
       pb="2.2rem"
     >
-      <Box bgColor="#dabda9" rounded="2.2rem" h="full">
+      <Grid
+        gridTemplateRows="auto 1fr"
+        bgColor="#dabda9"
+        rounded="2.2rem"
+        h="full"
+      >
+        <Box p="2rem" pb="0">
+          <Input
+            value={inputSearch}
+            onChange={(e) => setInputSearch(e.target.value)}
+            w="20rem"
+            bgColor="white"
+            placeholder="Buscar servicios"
+          />
+        </Box>
+
         <Flex
           className="hide-scrollbar"
           overflowY="scroll"
@@ -31,11 +52,26 @@ const Services: React.FC = () => {
           ref={ref}
           {...events}
         >
-          {services.map((service) => (
-            <ServiceItem service={service} />
-          ))}
+          {servicesFiltered.length === 0 || !servicesFiltered ? (
+            <Box mx="auto">
+              <Heading
+                color="#333"
+                textAlign="center"
+                fontSize="2rem"
+                fontWeight="black"
+                textTransform="uppercase"
+                textShadow="2px 2px #fff"
+              >
+                No se encontraron resultados ⚠️
+              </Heading>
+            </Box>
+          ) : (
+            servicesFiltered.map((service) => (
+              <ServiceItem service={service} />
+            ))
+          )}
         </Flex>
-      </Box>
+      </Grid>
     </Box>
   );
 };
