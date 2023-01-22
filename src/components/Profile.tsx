@@ -23,16 +23,16 @@ const Profile: React.FC = () => {
         position="relative"
         w="7rem"
         mx="auto"
-        css={{
-          img: {
-            width: "7rem",
-            height: "7rem",
-            borderRadius: "50%",
-            objectFit: "cover",
-          },
-        }}
       >
-        <Image loading="lazy" src="https://bit.ly/3HkKcnl" alt="" />
+        <Image
+          w="7rem"
+          h="7rem"
+          objectFit="cover"
+          rounded="full"
+          loading="lazy"
+          src="https://bit.ly/3iZ70zJ"
+          alt=""
+        />
 
         <Box bottom="0" right="0" position="absolute">
           <Button

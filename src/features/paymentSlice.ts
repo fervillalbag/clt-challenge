@@ -16,5 +16,5 @@ const paymentSlice = createSlice({
   },
 });
 
-export const { createPayment } = paymentSlice.actions;
+export const { createPayment, cleanPayments } = paymentSlice.actions;
 export default paymentSlice.reducer;

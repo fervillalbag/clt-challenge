@@ -6,9 +6,15 @@ import { Debts } from "../interfaces/debts";
 const initialState: Debts[] | [] = [
   {
     id: uuid(),
-    serviceId: 0,
+    serviceId: 1,
     userId: "",
-    amount: 20000,
+    amount: 250000,
+  },
+  {
+    id: uuid(),
+    serviceId: 6,
+    userId: "",
+    amount: 350000,
   },
 ];
 
@@ -24,8 +30,17 @@ const debtsSlice = createSlice({
         };
       });
     },
+
+    addDebt: (state, { payload }) => {
+      return state.filter((debt) => debt.id !== payload.id);
+    },
+
+    clearDebts: (state) => {
+      state = [];
+    },
   },
 });
 
-export const { updateUserLogin } = debtsSlice.actions;
+export const { updateUserLogin, addDebt, clearDebts } =
+  debtsSlice.actions;
 export default debtsSlice.reducer;

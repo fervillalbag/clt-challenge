@@ -2,9 +2,14 @@ import React from "react";
 import { Button, Grid, Text } from "@chakra-ui/react";
 import { MdOutlineLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { clearDebts } from "../features/debtsSlice";
+import { cleanPayments } from "../features/paymentSlice";
 
 const ButtonLogout: React.FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Grid
@@ -22,7 +27,11 @@ const ButtonLogout: React.FC = () => {
         bgColor="gray.200"
         h="3rem"
         w="8rem"
-        onClick={() => navigate("/login")}
+        onClick={() => {
+          dispatch(clearDebts());
+          dispatch(cleanPayments());
+          navigate("/login");
+        }}
       >
         <Text fontSize="1.2rem" mr="0.3rem">
           <MdOutlineLogout />
