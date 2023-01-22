@@ -18,7 +18,7 @@ import { User } from "../interfaces/user";
 
 const ListDebts: React.FC<{
   services: Service[];
-  debtsResponse: any;
+  debtsResponse: DebtsType[];
   user: User;
 }> = ({ debtsResponse, services, user }) => {
   return (

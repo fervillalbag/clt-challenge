@@ -17,7 +17,7 @@ const Services: React.FC = () => {
     service.name.toLowerCase().includes(inputSearch.toLowerCase())
   );
 
-  const ref: any = React.useRef();
+  const ref = React.useRef<any>(null);
   const { events } = useDraggable(ref);
 
   return (

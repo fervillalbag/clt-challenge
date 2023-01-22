@@ -26,7 +26,7 @@ import { Payment } from "../interfaces/payments";
 
 const History: React.FC = () => {
   const payments = useSelector(
-    (state: { payments: any }) => state.payments
+    (state: { payments: Payment[] }) => state.payments
   );
 
   const services = useSelector(

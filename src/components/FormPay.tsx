@@ -45,6 +45,7 @@ const FormPay: React.FC = () => {
   const [serviceSelected, setServiceSelected] =
     React.useState<Debts>();
 
+  // TODO: look up the data type name of this event
   const handleFocus = (event: any) => event.target.select();
 
   const handleSearchDebt = () => {
