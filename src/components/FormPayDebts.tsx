@@ -51,6 +51,14 @@ const FormPayDebts: React.FC<{ services: Service[] }> = ({
   const handlePayDebt = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
 
+    if (
+      infoPay.nroCta === "" ||
+      infoPay.nameCta === "" ||
+      infoPay.debtId === "" ||
+      infoPay.cvc === ""
+    ) {
+      return toast.error("Todos los campos son obligatorios");
+    }
     const debt = debts.find(
       (debt) => debt.id === infoPay.debtId
     ) as Debts;

@@ -30,9 +30,9 @@ const ListDebts: React.FC<{
 
         <TableContainer mt="1rem">
           <Table variant="simple" colorScheme="teal">
-            <TableCaption>
-              Imperial to metric conversion factors
-            </TableCaption>
+            {debtsResponse.length === 0 && (
+              <TableCaption>No hay deudas pendientes!</TableCaption>
+            )}
             <Thead>
               <Tr>
                 <Th>Servicio</Th>

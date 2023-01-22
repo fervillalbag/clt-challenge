@@ -11,7 +11,7 @@ const paymentSlice = createSlice({
       return [...state, payload];
     },
     cleanPayments: (state) => {
-      state = [];
+      state = initialState;
     },
   },
 });

@@ -33,7 +33,7 @@ const FormPay: React.FC = () => {
     nroCta: "",
     nameCta: "",
     cvc: "",
-    amount: null,
+    amount: 0,
   });
 
   const serviceSelected: Service | undefined = services.find(
@@ -60,13 +60,20 @@ const FormPay: React.FC = () => {
       return toast.error("El valor debe ser un valor positivo");
     }
 
-    dispatch(updateBalance(infoPay.amount));
+    const parseAmount = Number(
+      infoPay.amount
+        .toString()
+        .replaceAll(".", "")
+        .replaceAll(",", "")
+    );
+
+    dispatch(updateBalance(parseAmount));
 
     dispatch(
       createPayment({
         serviceId: infoPay.serviceId,
         userId: user.id,
-        amount: infoPay.amount,
+        amount: parseAmount,
         nroFactura: infoPay.nroFactura,
       })
     );
@@ -77,7 +84,7 @@ const FormPay: React.FC = () => {
       nroCta: "",
       nameCta: "",
       cvc: "",
-      amount: null,
+      amount: 0,
     });
 
     toast.success("Pago realizado!");

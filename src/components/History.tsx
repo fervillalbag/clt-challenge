@@ -10,6 +10,13 @@ import {
   Th,
   Tbody,
   Td,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+  Flex,
+  Button,
 } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 
@@ -28,6 +35,16 @@ const History: React.FC = () => {
 
   const user = useSelector((state: { user: User }) => state.user);
 
+  const [typeEntitySelected, setTypeEntitySelected] =
+    React.useState<string>("PUBLIC");
+
+  const paymentsFilter = payments?.filter((payment: Payment) => {
+    const service = services.find(
+      (service) => service.id === payment.serviceId
+    ) as Service;
+    if (service.type === typeEntitySelected) return payment;
+  });
+
   return (
     <Box
       pr="2.2rem"
@@ -39,12 +56,47 @@ const History: React.FC = () => {
           Historial de pago
         </Heading>
 
+        <Flex my="1rem">
+          <Button
+            borderBottom="2px solid"
+            borderColor={
+              typeEntitySelected === "PUBLIC"
+                ? "gray.500"
+                : "transparent"
+            }
+            rounded="0"
+            bgColor="transparent"
+            w="full"
+            _hover={{}}
+            onClick={() => setTypeEntitySelected("PUBLIC")}
+          >
+            Entidades publicas
+          </Button>
+          <Button
+            borderBottom="2px solid"
+            borderColor={
+              typeEntitySelected === "PRIVATE"
+                ? "gray.500"
+                : "transparent"
+            }
+            rounded="0"
+            bgColor="transparent"
+            w="full"
+            _hover={{}}
+            onClick={() => setTypeEntitySelected("PRIVATE")}
+          >
+            Entidades privadas
+          </Button>
+        </Flex>
+
         <Box mt="0.5rem">
           <TableContainer>
             <Table variant="striped" colorScheme="teal">
-              <TableCaption>
-                Imperial to metric conversion factors
-              </TableCaption>
+              {paymentsFilter.length === 0 && (
+                <TableCaption>
+                  No existe ningun pago realizado
+                </TableCaption>
+              )}
               <Thead>
                 <Tr>
                   <Th>Servicio</Th>
@@ -54,23 +106,27 @@ const History: React.FC = () => {
               </Thead>
               <Tbody>
                 {/* array */}
-                {payments.map((payment: Payment, index: number) => {
-                  const service: Service | undefined = services.find(
-                    (service) => service.id === payment.serviceId
-                  );
+                {paymentsFilter.map(
+                  (payment: Payment, index: number) => {
+                    const service: Service | undefined =
+                      services.find(
+                        (service) => service.id === payment.serviceId
+                      );
 
-                  return (
-                    <Tr key={index}>
-                      <Td>{service?.name}</Td>
-                      <Td>
-                        {user.id === payment.userId && user.fullname}
-                      </Td>
-                      <Td isNumeric>
-                        Gs. {payment.amount.toLocaleString("en-US")}
-                      </Td>
-                    </Tr>
-                  );
-                })}
+                    return (
+                      <Tr key={index}>
+                        <Td>{service?.name}</Td>
+                        <Td>
+                          {user.id === payment.userId &&
+                            user.fullname}
+                        </Td>
+                        <Td isNumeric>
+                          Gs. {payment.amount.toLocaleString("en-US")}
+                        </Td>
+                      </Tr>
+                    );
+                  }
+                )}
               </Tbody>
             </Table>
           </TableContainer>
