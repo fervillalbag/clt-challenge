@@ -1,5 +1,5 @@
 export interface InfoPay {
-  nroFactura: string;
+  nroDocumento: string;
   serviceId: number;
   nroCta: string;
   nameCta: string;

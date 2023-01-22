@@ -6,6 +6,7 @@ export const initialState = {
   fullname: "",
   email: "",
   balance: 2000000,
+  nroDocument: "",
 };
 
 export const userSlice = createSlice({
@@ -19,6 +20,7 @@ export const userSlice = createSlice({
       state.email = "";
       state.id = "";
       state.fullname = "";
+      state.nroDocument = "";
     },
     updateBalance: (state, { payload }) => {
       return {

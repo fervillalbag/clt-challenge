@@ -25,10 +25,16 @@ const Login: React.FC = () => {
     fullname: string;
     email: string;
     password: string;
-  }>({ fullname: "", email: "", password: "" });
+    nroDocument: string;
+  }>({ fullname: "", email: "", password: "", nroDocument: "" });
 
   React.useEffect(() => {
-    setUserInfo({ fullname: "", email: "", password: "" });
+    setUserInfo({
+      fullname: "",
+      email: "",
+      password: "",
+      nroDocument: "",
+    });
   }, []);
 
   const handleLogin = (e: React.FormEvent<HTMLInputElement>) => {
@@ -37,6 +43,10 @@ const Login: React.FC = () => {
 
     if (userInfo.fullname === "") {
       return toast.error("El nombre es obligatorio");
+    }
+
+    if (userInfo.nroDocument === "") {
+      return toast.error("El nro de documento obligatorio");
     }
 
     if (!regexValidationEmail.test(userInfo.email)) {
@@ -92,15 +102,15 @@ const Login: React.FC = () => {
         as="form"
         onSubmit={handleLogin}
       >
-        <Box css={{ img: { width: "120px" } }}>
+        <Box css={{ img: { width: "90px" } }}>
           <LazyLoadImage src="/logo.jpeg" alt="" />
         </Box>
         <Text color="#333" fontWeight="black" fontSize="2rem">
           Hola, de nuevo
         </Text>
-        <Text color="#333">
+        {/* <Text color="#333">
           Introduce las credenciales para iniciar sesion
-        </Text>
+        </Text> */}
         <Flex mt="1rem" gap="1rem 0" flexDir="column">
           <Box>
             <Text
@@ -124,6 +134,35 @@ const Login: React.FC = () => {
               value={userInfo.fullname}
               onChange={(e) =>
                 setUserInfo({ ...userInfo, fullname: e.target.value })
+              }
+            />
+          </Box>
+
+          <Box>
+            <Text
+              color="#999"
+              fontSize="0.8rem"
+              fontWeight="semibold"
+              as="label"
+              textTransform="uppercase"
+              display="block"
+              htmlFor="email"
+            >
+              Cedula/Nro documento
+            </Text>
+            <Input
+              autoComplete="off"
+              mt="0.5rem"
+              rounded="4px"
+              borderColor="#d9d9d9"
+              px="10px"
+              id="email"
+              value={userInfo.nroDocument}
+              onChange={(e) =>
+                setUserInfo({
+                  ...userInfo,
+                  nroDocument: e.target.value,
+                })
               }
             />
           </Box>
@@ -235,6 +274,7 @@ const Login: React.FC = () => {
               login({
                 fullname: "Roberto Lopez",
                 email: "robertlopez2@gmail.com",
+                nroDocument: "5795450",
               })
             );
             return toast.success("Sesion iniciada con Google");

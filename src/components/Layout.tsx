@@ -16,7 +16,7 @@ const Layout: React.FC<{ children?: React.ReactNode }> = ({
   if (user.fullname === "") return <NotLogin />;
 
   React.useEffect(() => {
-    dispatch(updateUserLogin(user.id));
+    dispatch(updateUserLogin(user.nroDocument));
   }, [user.email]);
 
   return (

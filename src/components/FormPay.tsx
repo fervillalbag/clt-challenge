@@ -17,6 +17,8 @@ import { InfoPay } from "../interfaces/infoPay";
 import { createPayment } from "../features/paymentSlice";
 import { User } from "../interfaces/user";
 import { updateBalance } from "../features/userSlice";
+import { Debts } from "../interfaces/debts";
+import { addDebt } from "../features/debtsSlice";
 
 const FormPay: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,10 +27,14 @@ const FormPay: React.FC = () => {
     (state: { services: Service[] }) => state.services
   );
 
+  const debts = useSelector(
+    (state: { debts: Debts[] }) => state.debts
+  );
+
   const user = useSelector((state: { user: User }) => state.user);
 
   const [infoPay, setInfoPay] = React.useState<InfoPay>({
-    nroFactura: "",
+    nroDocumento: "",
     serviceId: 0,
     nroCta: "",
     nameCta: "",
@@ -36,17 +42,38 @@ const FormPay: React.FC = () => {
     amount: 0,
   });
 
-  const serviceSelected: Service | undefined = services.find(
-    (service) => service.id === infoPay.serviceId
-  );
+  const [serviceSelected, setServiceSelected] =
+    React.useState<Debts>();
 
   const handleFocus = (event: any) => event.target.select();
+
+  const handleSearchDebt = () => {
+    setServiceSelected({
+      id: "",
+      serviceId: 0,
+      userId: "",
+      amount: 0,
+    });
+
+    const debt = debts.find(
+      (debt) =>
+        debt.userId === infoPay.nroDocumento &&
+        debt.serviceId === infoPay.serviceId
+    );
+
+    if (debt?.id) {
+      toast.success("Deuda encontrada");
+      return setServiceSelected(debt);
+    }
+
+    toast.error("Deuda no encontrada");
+  };
 
   const handlePay = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     if (
-      infoPay.nroFactura === "" ||
+      infoPay.nroDocumento === "" ||
       !infoPay.serviceId ||
       infoPay.serviceId === 0 ||
       infoPay.nroCta === "" ||
@@ -60,11 +87,24 @@ const FormPay: React.FC = () => {
       return toast.error("El valor debe ser un valor positivo");
     }
 
+    if (!serviceSelected?.id)
+      return toast.error("No se puede realizar dicha operacion");
+
     const parseAmount = Number(
-      infoPay.amount
+      serviceSelected?.amount
         .toString()
         .replaceAll(".", "")
         .replaceAll(",", "")
+    );
+
+    // pay debts
+    dispatch(
+      addDebt({
+        id: serviceSelected?.id,
+        serviceId: infoPay.serviceId,
+        userId: user.id,
+        amount: infoPay.amount,
+      })
     );
 
     dispatch(updateBalance(parseAmount));
@@ -74,12 +114,12 @@ const FormPay: React.FC = () => {
         serviceId: infoPay.serviceId,
         userId: user.id,
         amount: parseAmount,
-        nroFactura: infoPay.nroFactura,
+        nroFactura: infoPay.nroDocumento,
       })
     );
 
     setInfoPay({
-      nroFactura: "",
+      nroDocumento: "",
       serviceId: 0,
       nroCta: "",
       nameCta: "",
@@ -99,6 +139,8 @@ const FormPay: React.FC = () => {
       onSubmit={handlePay}
     >
       <Flex
+        outline="0.7rem solid"
+        outlineColor={serviceSelected?.id ? "green.300" : "red.200"}
         flexDir="column"
         justifyContent="space-between"
         bgColor="#0f1322"
@@ -110,16 +152,19 @@ const FormPay: React.FC = () => {
           <Heading color="white">Pagar servicios</Heading>
           <Box my="1rem">
             <Text as="label" htmlFor="nro-factura" color="white">
-              Nro de Factura
+              Nro de Documento
             </Text>
             <Input
-              value={infoPay.nroFactura}
+              value={infoPay.nroDocumento}
               onChange={(e) =>
-                setInfoPay({ ...infoPay, nroFactura: e.target.value })
+                setInfoPay({
+                  ...infoPay,
+                  nroDocumento: e.target.value,
+                })
               }
               mt="0.5rem"
               bgColor="white"
-              placeholder="Ejemplo: 23982137273-277"
+              placeholder=""
             />
           </Box>
 
@@ -146,9 +191,33 @@ const FormPay: React.FC = () => {
             </Select>
           </Box>
 
-          <Heading color="white">
+          {/* <Heading color="white">
             {serviceSelected?.name || "--"}
-          </Heading>
+          </Heading> */}
+
+          <Flex alignItems="center" justifyContent="space-between">
+            <Heading
+              fontSize="1.2rem"
+              textTransform="uppercase"
+              color="white"
+            >
+              {serviceSelected?.id.slice(0, 16) || "XXXX-XXXX-XXXX"}
+            </Heading>
+
+            <Button
+              type="button"
+              border="1px solid white"
+              bgColor="transparent"
+              color="white"
+              _hover={{ bgColor: "blue.900" }}
+              _focusWithin={{}}
+              _active={{ bgColor: "transparent" }}
+              _focus={{}}
+              onClick={handleSearchDebt}
+            >
+              Verificar
+            </Button>
+          </Flex>
         </Box>
 
         <Box mt="1rem">
@@ -189,15 +258,14 @@ const FormPay: React.FC = () => {
               Monto de la cuota
             </Text>
             <Input
+              disabled
+              _disabled={{ opacity: 0.7 }}
+              value={serviceSelected?.amount}
               type="number"
               onFocus={handleFocus}
-              value={infoPay.amount ?? "0"}
-              onChange={(e) =>
-                setInfoPay({ ...infoPay, amount: +e.target.value })
-              }
               mt="0.5rem"
               bgColor="white"
-              placeholder="Ejemplo: Juan Lopez"
+              // placeholder="Ejemplo: Juan Lopez"
             />
           </Box>
 
