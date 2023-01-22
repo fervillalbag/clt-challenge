@@ -7,6 +7,7 @@ import Plans from "../screens/Plans";
 import Logistic from "../screens/Logistic";
 import Map from "../screens/Map";
 import NotLogin from "../components/NotLogin";
+import Debts from "../screens/Debts";
 
 export const Navigation = () => {
   return (
@@ -21,6 +22,8 @@ export const Navigation = () => {
         <Route path="/plans" element={<Plans />} />
         <Route path="/logistic" element={<Logistic />} />
         <Route path="/map" element={<Map />} />
+
+        <Route path="/debts" element={<Debts />} />
       </Routes>
     </BrowserRouter>
   );

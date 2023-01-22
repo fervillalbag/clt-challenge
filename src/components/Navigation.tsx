@@ -7,25 +7,30 @@ const links = [
     name: "Inicio",
     route: "/",
   },
+  // {
+  //   id: 2,
+  //   name: "Explorar",
+  //   route: "/explore",
+  // },
+  // {
+  //   id: 3,
+  //   name: "Planes",
+  //   route: "/plans",
+  // },
+  // {
+  //   id: 4,
+  //   name: "Logistica",
+  //   route: "/logistic",
+  // },
+  // {
+  //   id: 5,
+  //   name: "Mapa",
+  //   route: "/map",
+  // },
   {
-    id: 2,
-    name: "Explorar",
-    route: "/explore",
-  },
-  {
-    id: 3,
-    name: "Planes",
-    route: "/plans",
-  },
-  {
-    id: 4,
-    name: "Logistica",
-    route: "/logistic",
-  },
-  {
-    id: 5,
-    name: "Mapa",
-    route: "/map",
+    id: 6,
+    name: "Deudas",
+    route: "/debts",
   },
 ];
 
