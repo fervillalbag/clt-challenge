@@ -9,6 +9,7 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
+import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
@@ -116,6 +117,7 @@ const FormPay: React.FC = () => {
         userId: user.id,
         amount: parseAmount,
         nroFactura: infoPay.nroDocumento,
+        created_at: dayjs().format(),
       })
     );
 

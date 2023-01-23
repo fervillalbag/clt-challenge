@@ -7,6 +7,7 @@ import App from "./App";
 import { theme } from "./theme";
 import { store } from "./app/store";
 
+import "react-calendar/dist/Calendar.css";
 import "./index.css";
 
 ReactDOM.createRoot(

@@ -3,4 +3,5 @@ export interface Payment {
   userId: string;
   amount: number;
   nroFactura: string;
+  created_at: string;
 }
