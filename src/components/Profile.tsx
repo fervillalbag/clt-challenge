@@ -65,6 +65,15 @@ const Profile: React.FC = () => {
       >
         {user.email}
       </Text>
+      <Text
+        mt="0.5"
+        textAlign="center"
+        fontWeight="bold"
+        fontSize="0.9rem"
+        color="gray.600"
+      >
+        C.I {Number(user.nroDocument).toLocaleString("en-US")}
+      </Text>
 
       <Heading
         fontSize="1.25rem"

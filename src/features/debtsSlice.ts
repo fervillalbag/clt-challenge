@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
 
+import { getRandomInt } from "../hooks/useRandomNum";
 import { Debts } from "../interfaces/debts";
 
 const initialState: Debts[] | [] = [
@@ -8,13 +9,25 @@ const initialState: Debts[] | [] = [
     id: uuid(),
     serviceId: 1,
     userId: "",
-    amount: 250000,
+    amount: getRandomInt(200000, 600000),
   },
   {
     id: uuid(),
-    serviceId: 6,
+    serviceId: 2,
     userId: "",
-    amount: 350000,
+    amount: getRandomInt(200000, 600000),
+  },
+  {
+    id: uuid(),
+    serviceId: 3,
+    userId: "",
+    amount: getRandomInt(200000, 600000),
+  },
+  {
+    id: uuid(),
+    serviceId: 4,
+    userId: "",
+    amount: getRandomInt(200000, 600000),
   },
 ];
 

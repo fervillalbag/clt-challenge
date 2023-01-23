@@ -21,19 +21,21 @@ import {
   ModalCloseButton,
   Flex,
   Button,
-  Input,
-  Text,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { BsCalendar } from "react-icons/bs";
 
 import { User } from "../interfaces/user";
 import { Service } from "../interfaces/service";
 import { Payment } from "../interfaces/payments";
-import { restartTime } from "../hooks/restartTime";
-import { BsCalendar } from "react-icons/bs";
 
 const History: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const user = useSelector((state: { user: User }) => state.user);
+
   const payments = useSelector(
     (state: { payments: Payment[] }) => state.payments
   );
@@ -42,14 +44,11 @@ const History: React.FC = () => {
     (state: { services: Service[] }) => state.services
   );
 
-  const user = useSelector((state: { user: User }) => state.user);
-
   const [typeEntitySelected, setTypeEntitySelected] =
     React.useState<string>("PUBLIC");
 
-  const [rangeDateSelected, setRangeDateSelected] = React.useState(
-    new Date()
-  );
+  const [rangeDateSelected, setRangeDateSelected] =
+    React.useState<any>();
 
   const paymentsFilter = payments?.filter((payment: Payment) => {
     const service = services.find(
@@ -65,6 +64,11 @@ const History: React.FC = () => {
   );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const paymentsRender =
+    paymentsFilteredByDate.length === 0 && !rangeDateSelected
+      ? paymentsFilter
+      : paymentsFilteredByDate;
 
   return (
     <Box
@@ -99,6 +103,11 @@ const History: React.FC = () => {
           </Heading>
 
           <Flex gap="1rem" alignItems="center">
+            <Box mr="10px">
+              <Text fontSize="14px">
+                {dayjs(rangeDateSelected).format("DD/MM/YYYY")}
+              </Text>
+            </Box>
             <Box>
               <Button type="button" onClick={onOpen}>
                 <BsCalendar />
@@ -143,7 +152,7 @@ const History: React.FC = () => {
         <Box mt="0.5rem">
           <TableContainer>
             <Table variant="striped" colorScheme="teal">
-              {paymentsFilteredByDate.length === 0 && (
+              {paymentsRender.length === 0 && (
                 <TableCaption>
                   No existe ningun pago realizado
                 </TableCaption>
@@ -157,7 +166,7 @@ const History: React.FC = () => {
               </Thead>
               <Tbody>
                 {/* array */}
-                {paymentsFilteredByDate.map(
+                {paymentsRender.map(
                   (payment: Payment, index: number) => {
                     const service: Service | undefined =
                       services.find(
